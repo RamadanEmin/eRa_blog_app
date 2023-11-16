@@ -3,6 +3,7 @@ import styles from './navbar.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import AuthLinks from '../authLinks/AuthLinks';
+import ThemeToggle from '../themeToggle/ThemeToggle';
 
 const Navbar = () => {
     return (
@@ -15,6 +16,7 @@ const Navbar = () => {
             </div>
             <div className={styles.logo}>eRaBlog</div>
             <div className={styles.links}>
+                <ThemeToggle/>
                 <Link href="/" className={styles.link}>Homepage</Link>
                 <Link href="/" className={styles.link}>Contact</Link>
                 <Link href="/" className={styles.link}>About</Link>
