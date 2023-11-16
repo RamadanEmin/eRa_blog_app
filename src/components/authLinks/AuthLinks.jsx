@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 
+import styles from './authLinks.module.css';
+
 const AuthLinks = () => {
     const [open, setOpen] = useState(false);
 
