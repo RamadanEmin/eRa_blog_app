@@ -1,5 +1,6 @@
 import Menu from '@/components/menu/Menu';
 import Image from 'next/image';
+import Comments from '@/components/comments/Comments';
 
 import styles from './singlePage.module.css';
 
@@ -45,6 +46,9 @@ const SinglePage = () => {
                             aliquid, reiciendis consequatur nobis ea esse. Sapiente perspiciatis
                             atque voluptate eligendi quis.
                         </p>
+                    </div>
+                    <div className={styles.comment}>
+                        <Comments />
                     </div>
                 </div>
                 <Menu />
