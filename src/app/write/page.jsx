@@ -2,11 +2,16 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import ReactQuill from 'react-quill';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
+import 'react-quill/dist/quill.bubble.css';
+import styles from './write.module.css';
+
 const WritePage = () => {
     const [open, setOpen] = useState(false);
+    const [value, setValue] = useState('');
 
     const { status } = useSession();
 
@@ -42,6 +47,13 @@ const WritePage = () => {
                         </button>
                     </div>
                 )}
+                <ReactQuill
+                    className={styles.textArea}
+                    theme="bubble"
+                    value={value}
+                    onChange={setValue}
+                    placeholder="Tell your story..."
+                />
             </div>
             <button className={styles.publish}>Publish</button>
         </div>
