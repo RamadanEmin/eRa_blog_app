@@ -3,24 +3,24 @@ import Link from 'next/link';
 
 import styles from './card.module.css';
 
-const Card = () => {
+const Card = ({ item, key }) => {
     return (
-        <div className={styles.container}>
+        <div className={styles.container} key={key}>
             <div className={styles.imageContainer}>
-                <Image src="/p1.jpeg" alt="" fill className={styles.image}/>
+                {item.img && <Image src={item.img} alt="" fill className={styles.image} />}
             </div>
             <div className={styles.textContainer}>
                 <div className={styles.detail}>
-                    <span className={styles.date}>11.11.2023 - </span>
-                    <span className={styles.category}>CULTURE</span>
+                    <span className={styles.date}>{item.createdAt.substring(0, 10)} - </span>
+                    <span className={styles.category}>{item.catSlug}</span>
                 </div>
-                <h1>Lorem ipsum dolor sit, amet alim consectetur adipisicing elit.</h1>
+                <Link href={`/posts/${item.slug}`}>
+                    <h1>{item.title}</h1>
+                </Link>
                 <p className={styles.desc}>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut animi aliquid itaque
-                    laborum tempora ratione maiores culpa, eius explicabo eligendi saepe, reiciendis
-                    facere delectus qui vitae beatae illum unde velit.
+                    {item.des.substring(0, 60)}
                 </p>
-                <Link href="/" className={styles.link}>Read More</Link>
+                <Link href={`/posts/${item.slug}`} className={styles.link}>Read More</Link>
             </div>
         </div>
     );
