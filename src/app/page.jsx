@@ -5,14 +5,17 @@ import Menu from '@/components/menu/Menu';
 
 import styles from './homepage.module.css';
 
-export default function Home() {
+export default function Home({ searchParams }) {
+    const page = parseInt(searchParams.page) || 1;
+    const { cat } = searchParams;
+
     return (
         <div className={styles.container}>
             <Featured />
             <CategoryList />
             <div className={styles.content}>
-                <CardList/>
-                <Menu/>
+                <CardList page={page}/>
+                <Menu />
             </div>
         </div>
     );
