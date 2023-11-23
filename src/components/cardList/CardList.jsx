@@ -15,8 +15,14 @@ const getDate = async (page, cat) => {
     return res.json();
 };
 
-const CardList = async () => {
-    const { posts, count } = await getDate(page);
+const CardList = async ({ page, cat }) => {
+    const { posts, count } = await getDate(page, cat);
+
+    const POST_PER_PAGE = 2;
+
+    const hasPrev = POST_PER_PAGE * (page - 1) > 0;
+    const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
+
 
     return (
         <div className={styles.container}>
@@ -26,7 +32,7 @@ const CardList = async () => {
                     <Card item={item} key={item._id} />
                 ))}
             </div>
-            <Pagination />
+            <Pagination page={page} hasPrev={hasPrev} hasNext={hasNext} />
         </div>
     );
 };
