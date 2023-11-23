@@ -19,6 +19,8 @@ const WritePage = () => {
     const [file, setFile] = useState(null);
     const [media, setMedia] = useState('');
     const [value, setValue] = useState('');
+    const [title, setTitle] = useState('');
+    const [catSlug, setCatSlug] = useState('');
 
     useEffect(() => {
         const storage = getStorage(app);
@@ -63,8 +65,48 @@ const WritePage = () => {
         router.push('/');
     }
 
+    const slugify = (str) =>
+        str
+            .toLowerCase()
+            .trim()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/[\s_-]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+
+    const handleSubmit = async () => {
+        const res = await fetch('/api/posts', {
+            method: 'POST',
+            body: JSON.stringify({
+                title,
+                des: value,
+                img: media,
+                slug: slugify(title),
+                catSlug: catSlug || 'style'
+            })
+        });
+
+        if (res.status === 200) {
+            const data = await res.json();
+            router.push(`/posts/${data.slug}`);
+        }
+    };
+
     return (
         <div className={styles.container}>
+            <input
+                type="text"
+                placeholder="Title"
+                className={styles.input}
+                onChange={(e) => setTitle(e.target.value)}
+            />
+            <select className={styles.select} onChange={(e) => setCatSlug(e.target.value)}>
+                <option value="style">style</option>
+                <option value="fashion">fashion</option>
+                <option value="food">food</option>
+                <option value="culture">culture</option>
+                <option value="travel">travel</option>
+                <option value="coding">coding</option>
+            </select>
             <div className={styles.editor}>
                 <button className={styles.button} onClick={() => setOpen(!open)}>
                     <Image src="/plus.png" alt="" width={16} height={16} />
@@ -98,7 +140,7 @@ const WritePage = () => {
                     placeholder="Tell your story..."
                 />
             </div>
-            <button className={styles.publish}>
+            <button className={styles.publish} onClick={handleSubmit}>
                 Publish
             </button>
         </div>
